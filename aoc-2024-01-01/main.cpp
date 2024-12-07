@@ -66,12 +66,13 @@ bool readFile(const string filename, int lhs[], int rhs[], const int maxLines) {
         exit(1);
     }
     string line;
-    for (int l = 0; l < maxLines; l++) {
+    for (int l = 0; l < maxLines && !inputfile.eof(); l++) {
         getline(inputfile, line);
         istringstream ss(line);
         ss >> lhs[l];
         ss >> rhs[l];
     }
+    inputfile.close();
     return true;
 }
 
