@@ -199,10 +199,28 @@ bool diagonalSWtoNE(const int x, const int y, const vector<string> *data) {
 
 int main()
 {
-    testFunctions();
+    // testFunctions();
 
     vector<string> dataGrid;
     readData(FILENAME01, &dataGrid);
+
+    int score = 0;
+    for(int y = 1; y <= dataGrid.size(); y++) {
+        string line = dataGrid.at(y - 1);
+        int lineScore = 0; // For debugging
+        for (int x = 1; x <= line.size(); x++) {
+            if (isForwards(x, y, &dataGrid)) lineScore++;
+            if (isBackwards(x, y, &dataGrid)) lineScore++;
+            if (isTopDown(x, y, &dataGrid)) lineScore++;
+            if (isDownUp(x, y, &dataGrid)) lineScore++;
+            if (diagonalNWtoSE(x, y, &dataGrid)) lineScore++;
+            if (diagonalNEtoSW(x, y, &dataGrid)) lineScore++;
+            if (diagonalSEtoNW(x, y, &dataGrid)) lineScore++;
+            if (diagonalSWtoNE(x, y, &dataGrid)) lineScore++;
+        }
+        score += lineScore;
+    }
+    printf("Total score:  %i\n", score);
     return 0;
 }
 
@@ -297,7 +315,7 @@ bool testDiagonalFunctions() {
     printf("(10) SW->NE:  should be false:  %i\n", diagonalSWtoNE(2,7, &dataGridTest));
     printf("(11) SE->NW:  should be false:  %i\n", diagonalSEtoNW(-1,9, &dataGridTest));
     printf("(12) SW->NE:  should be false:  %i\n", diagonalSWtoNE(3,12, &dataGridTest));
-
+    return true;
 }
 
 bool testUpAndDown() {
