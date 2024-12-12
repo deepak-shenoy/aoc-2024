@@ -268,6 +268,38 @@ bool testForwardAndReverseSearch() {
     return true;
 }
 
+bool testDiagonalFunctions() {
+    vector<string> dataGridTest = {
+        ".X..SX.....X.S....",           // 1
+        "..MA.M....M..A....X",          // 2
+        "..MASA...A...M....M",          // 3
+        ".XAASS..S....X....A",          // 4
+        ".MM..?.......S....S.",         // 5
+        "XX.........S.SS",               // 6
+        "M..........A.SAA",           // 7
+        "A..........M.A.MM",           // 8
+        "S..S.S.....X.M..XX",           // 9
+        "..A..A.......X...M..",         // 10
+        ".M...M...........A.",          // 11
+        "X....X...........S"            // 12
+    };
+
+    printf("(1)  NW->SE:  should be true:   %i\n", diagonalNWtoSE(2,1, &dataGridTest));
+    printf("(2)  NE->SW:  should be true:   %i\n", diagonalNEtoSW(12,1, &dataGridTest));
+    printf("(3)  NE->SW:  should be true:   %i\n", diagonalSWtoNE(2,4, &dataGridTest));
+    printf("(4)  SW->NE:  should be true:   %i\n", diagonalSWtoNE(2,6, &dataGridTest));
+    printf("(5)  SE->NW:  should be true:   %i\n", diagonalSEtoNW(18,9, &dataGridTest));
+    printf("(6)  SW->NE:  should be true:   %i\n", diagonalSWtoNE(1,12, &dataGridTest));
+
+    printf("(7)  NW->SE:  should be false:  %i\n", diagonalNWtoSE(3,1, &dataGridTest));
+    printf("(8)  NE->SW:  should be false:  %i\n", diagonalNEtoSW(30,1, &dataGridTest));
+    printf("(9)  NE->SW:  should be false:  %i\n", diagonalSWtoNE(2,40, &dataGridTest));
+    printf("(10) SW->NE:  should be false:  %i\n", diagonalSWtoNE(2,7, &dataGridTest));
+    printf("(11) SE->NW:  should be false:  %i\n", diagonalSEtoNW(-1,9, &dataGridTest));
+    printf("(12) SW->NE:  should be false:  %i\n", diagonalSWtoNE(3,12, &dataGridTest));
+
+}
+
 bool testUpAndDown() {
     vector<string> dataGridTest = {
         ".....X.......S....",           // 1
@@ -297,7 +329,6 @@ bool testUpAndDown() {
     printf("(11) Down Up:   should be true:   %i\n", isDownUp(6,12, &dataGridTest));
     printf("(12) Down Up:   should be false:  %i\n", isDownUp(1,12, &dataGridTest));
     return true;
-
 }
 
 bool testFunctions() {
@@ -307,6 +338,8 @@ bool testFunctions() {
     testForwardAndReverseSearch();
     printf("\nVertical\n\n");
     testUpAndDown();
+    printf("\nDiagonal\n\n");
+    testDiagonalFunctions();
     printf("End Tests....\n");
     printf("=================================================================\n\n");
     return true;
