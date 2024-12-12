@@ -102,7 +102,7 @@ bool isTopDown(const int x, const int y, const vector<string> *data) {
             if(token.compare(WORD__XMAS)==0) return true;
         }
     } catch (exception e) {
-        printf("Exception occured (top down): %s\n", e.what());
+        printf("Exception occurred (top down): %s\n", e.what());
     }
     return false;
 }
@@ -120,7 +120,79 @@ bool isDownUp(const int x, const int y, const vector<string> *data) {
             if(token.compare(WORD__XMAS)==0) return true;
             }
     } catch (exception e) {
-        printf("Exception occured (top down): %s\n", e.what());
+        printf("Exception occurred (top down): %s\n", e.what());
+    }
+    return false;
+}
+
+bool diagonalNWtoSE(const int x, const int y, const vector<string> *data) {
+    try {
+        if (y < 1 || x < 1 || y + WORD__SIZE -1 > data->size()) {
+            return false;
+        }
+        string token = "xxxx";
+        if (getChatAtXY(x, y, data, &token[0]) &&
+            getChatAtXY(x + 1, y + 1, data, &token[1]) &&
+            getChatAtXY(x + 2, y + 2, data, &token[2]) &&
+            getChatAtXY(x + 3, y + 3, data, &token[3])) {
+            if(token.compare(WORD__XMAS)==0) return true;
+            }
+    } catch (exception e) {
+        printf("Exception occurred (diagonal NW to SE): %s\n", e.what());
+    }
+    return false;
+}
+
+bool diagonalNEtoSW(const int x, const int y, const vector<string> *data) {
+    try {
+        if (y < 1 || x < 1 || y + WORD__SIZE -1 > data->size()) {
+            return false;
+        }
+        string token = "xxxx";
+        if (getChatAtXY(x, y, data, &token[0]) &&
+            getChatAtXY(x - 1, y + 1, data, &token[1]) &&
+            getChatAtXY(x - 2, y + 2, data, &token[2]) &&
+            getChatAtXY(x - 3, y + 3, data, &token[3])) {
+            if(token.compare(WORD__XMAS)==0) return true;
+            }
+    } catch (exception e) {
+        printf("Exception occurred (diagonal NE to SW): %s\n", e.what());
+    }
+    return false;
+}
+
+bool diagonalSEtoNW(const int x, const int y, const vector<string> *data) {
+    try {
+        if (y < 1 || x < 1 || y - WORD__SIZE < 0) {
+            return false;
+        }
+        string token = "xxxx";
+        if (getChatAtXY(x, y, data, &token[0]) &&
+            getChatAtXY(x - 1, y - 1, data, &token[1]) &&
+            getChatAtXY(x - 2, y - 2, data, &token[2]) &&
+            getChatAtXY(x - 3, y - 3, data, &token[3])) {
+            if(token.compare(WORD__XMAS)==0) return true;
+            }
+    } catch (exception e) {
+        printf("Exception occurred (diagonal SE to NW): %s\n", e.what());
+    }
+    return false;
+}
+
+bool diagonalSWtoNE(const int x, const int y, const vector<string> *data) {
+    try {
+        if (y < 1 || x < 1 || y - WORD__SIZE < 0) {
+            return false;
+        }
+        string token = "xxxx";
+        if (getChatAtXY(x, y, data, &token[0]) &&
+            getChatAtXY(x + 1, y - 1, data, &token[1]) &&
+            getChatAtXY(x + 2, y - 2, data, &token[2]) &&
+            getChatAtXY(x + 3, y - 3, data, &token[3])) {
+            if(token.compare(WORD__XMAS)==0) return true;
+            }
+    } catch (exception e) {
+        printf("Exception occurred (diagonal SE to NW): %s\n", e.what());
     }
     return false;
 }
@@ -224,8 +296,6 @@ bool testUpAndDown() {
     printf("(10) Down Up:   should be true:   %i\n", isDownUp(12,9, &dataGridTest));
     printf("(11) Down Up:   should be true:   %i\n", isDownUp(6,12, &dataGridTest));
     printf("(12) Down Up:   should be false:  %i\n", isDownUp(1,12, &dataGridTest));
-
-
     return true;
 
 }
