@@ -91,15 +91,15 @@ bool isBackwards(const int x, const int y, const vector<string> *data) {
 
 bool isTopDown(const int x, const int y, const vector<string> *data) {
     try {
-        if (y < 1 || x < 1 || y + WORD__SIZE > data->size()) {
+        if (y < 1 || x < 1 || y + WORD__SIZE -1 > data->size()) {
             return false;
         }
-        string token;
+        string token = "xxxx";
         if (getChatAtXY(x, y, data, &token[0]) &&
             getChatAtXY(x, y + 1, data, &token[1]) &&
             getChatAtXY(x, y + 2, data, &token[2]) &&
             getChatAtXY(x, y + 3, data, &token[3])) {
-            if(token.compare(WORD__XMAS)) return true;
+            if(token.compare(WORD__XMAS)==0) return true;
         }
     } catch (exception e) {
         printf("Exception occured (top down): %s\n", e.what());
@@ -112,12 +112,12 @@ bool isDownUp(const int x, const int y, const vector<string> *data) {
         if (y < 1 || x < 1 || y - WORD__SIZE < 0) {
             return false;
         }
-        string token;
+        string token = "xxxx";
         if (getChatAtXY(x, y, data, &token[0]) &&
             getChatAtXY(x, y - 1, data, &token[1]) &&
             getChatAtXY(x, y - 2, data, &token[2]) &&
             getChatAtXY(x, y - 3, data, &token[3])) {
-            if(token.compare(REVER_XMAS)) return true;
+            if(token.compare(WORD__XMAS)==0) return true;
             }
     } catch (exception e) {
         printf("Exception occured (top down): %s\n", e.what());
@@ -135,7 +135,7 @@ int main()
 }
 
 
-bool testForwardSearch() {
+bool testForwardAndReverseSearch() {
     vector<string> dataGridTest = {
         "....XMAS",                // 1
         "....SAMX",                // 2
@@ -196,10 +196,47 @@ bool testForwardSearch() {
     return true;
 }
 
+bool testUpAndDown() {
+    vector<string> dataGridTest = {
+        ".....X.......S....",           // 1
+        "..X..M.......A....X",          // 2
+        "..M..A.......M....M",          // 3
+        "..A..S.......X....A",          // 4
+        "..S..?.......S....S.",         // 5
+        "X..........S..",               // 6
+        "M..........A.S....",           // 7
+        "A..........M.A....",           // 8
+        "S....S.....X.M...X",           // 9
+        ".....A.......X...M..",         // 10
+        ".....M...........A.",          // 11
+        ".....X...........S"            // 12
+    };
+
+    printf("(1)  Top down:  should be true:   %i\n", isTopDown(6,1, &dataGridTest));
+    printf("(2)  Down Up:   should be false:  %i\n", isDownUp(1,1, &dataGridTest));
+    printf("(3)  Top down:  should be true:   %i\n", isTopDown(3,2, &dataGridTest));
+    printf("(4)  Top down:  should be true:   %i\n", isTopDown(19,2, &dataGridTest));
+    printf("(5)  Down Up:   should be true:   %i\n", isDownUp(14,4, &dataGridTest));
+    printf("(6)  Top down:  should be false:  %i\n", isTopDown(20,5, &dataGridTest));
+    printf("(7)  Top down:  should be true:   %i\n", isTopDown(1,6, &dataGridTest));
+    printf("(8)  Down Up:   should be true:   %i\n", isDownUp(12,9, &dataGridTest));
+    printf("(9)  Top down:  should be true:   %i\n", isTopDown(18,9, &dataGridTest));
+    printf("(10) Down Up:   should be true:   %i\n", isDownUp(12,9, &dataGridTest));
+    printf("(11) Down Up:   should be true:   %i\n", isDownUp(6,12, &dataGridTest));
+    printf("(12) Down Up:   should be false:  %i\n", isDownUp(1,12, &dataGridTest));
+
+
+    return true;
+
+}
+
 bool testFunctions() {
     printf("=================================================================\n");
     printf("Begin Tests....\n");
-    testForwardSearch();
+    printf("Horizontal\n\n");
+    testForwardAndReverseSearch();
+    printf("\nVertical\n\n");
+    testUpAndDown();
     printf("End Tests....\n");
     printf("=================================================================\n\n");
     return true;
