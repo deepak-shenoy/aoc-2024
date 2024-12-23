@@ -1,6 +1,6 @@
 /*
 * Advent of Code Day 06
- * Part 01
+ * Part 02
  * Deepak Shenoy
  *
  */
